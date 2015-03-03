@@ -1,0 +1,140 @@
+<script type="text/javascript">
+    var pag_prev = document.getElementById('pag_prev');
+    if (pag_prev) {
+        var link_prev = document.createElement('link');
+        link_prev.setAttribute('rel', 'prev');
+        link_prev.setAttribute('href', pag_prev.getAttribute('href'));
+        document.head.appendChild(link_prev)
+    }
+    var pag_next = document.getElementById('pag_next');
+    if (pag_next) {
+        var link_next = document.createElement('link');
+        link_next.setAttribute('rel', 'next');
+        link_next.setAttribute('href', pag_next.getAttribute('href'));
+        document.head.appendChild(link_next)
+    }
+</script>
+<div itemscope itemtype="http://schema.org/Organization" id="footer" class="clearfix">
+    <img itemprop="logo" src="<?php echo STATIC_PREPEND; ?>img/logo-dod.png" width="396" height="71" class="hide">
+    <a itemprop="url" href="https://www.deonlinedrogist.nl" class="hide">www.deonlinedrogist.nl</a>
+
+    <?php
+    if ($_GET['skin'] == 'leidapharm') {
+        ?>
+        <ul id="menuTop">
+            <?php
+            echo '<li><a href="' . tep_href_link(FILENAME_CONDITIONS) . '">' . LINK_HEADER_CONDITIONS . '</a></li>';
+            echo '<li><a href="' . tep_href_link("contactenadvies.php") . '">' . LINK_HEADER_SERVICE . '</a></li>';
+            ?>
+        </ul>
+    <?php
+    }
+    if(isset($skin) &&  $_GET['skin'] =='feestdagen')
+        echo '<div class="gift"></div>';
+    ?>
+    <div id="copyright">
+        Prijzen zijn in Euro's, incl. BTW en excl. eventuele verzendkosten @ <span itemprop="name">DeOnlineDrogist.nl</span> <?php echo date("Y");?>
+    </div>
+    <?php if (!$_GET['skin'] || $_GET['skin'] =='feestdagen'){?>
+        <div class="footer-links clearfix">
+            <ul>
+                <li class="title">Contact</li>
+                <li><span>Telefoon:</span> <span class="info-span" itemprop="telephone">020 7173893</span></li>
+                <li><span>Fax:</span> 020 7173092</li>
+                <li><span>E-mail:</span> <span class="info-span" itemprop="email">klantenservice@dod.nl</span></li>
+                <li><span>WhatsApp:</span> <a href="/DeOnlineDrogist.nl-Klantenservice.vcf">06-13503237</a></li>
+            </ul>
+
+            <ul class="f_links">
+                <li class="title">DOD.NL</li>
+                <li><a href="algemene_voorwaarden.php" title="Algemene voorwaarden">Algemene voorwaarden</a></li>
+                <li><a href="disclaimer.php" title="Disclaimer">Disclaimer</a></li>
+                <li><a href="packmee.php" title="Nieuws">Nieuws</a></li>
+                <li><a href="over_ons.php" title="Over ons">Over ons</a></li>
+                <li><a href="privacyverklaring.php" title="Privacy verklaring">Privacy verklaring</a></li>
+                <li><a href="cookies.php" title="Cookies">Cookies</a></li>
+                <li><a href="vacatures.php" title="Vacatures">Vacatures</a></li>
+                <li><a href="affiliates.php" title="Affiliates">Affiliates</a></li>
+            </ul>
+
+            <ul class="f_links">
+                <li class="title">Klantenservice</li>
+                <li><a href="betaalmogelijkheden.php" title="Betaalmogelijkheden">Betaalmogelijkheden </a></li>
+                <li><a href="contactenadvies.php" title="Contact &amp; Advies">Contact &amp; Advies</a></li>
+                <li><a href="klachten.php" title="">Klachten</a></li>
+                <li><a href="kortingscodes.php" title="">Kortingscodes</a></li>
+                <li><a href="retouren_en_garantie.php" title="">Retouren &amp; Garantie</a></li>
+                <li><a href="verzenden_en_bezorgen.php" title="">Verzenden &amp; Bezorgen</a></li>
+                <li><a href="werking_van_de_site.php" title="">Werking van de site</a></li>
+            </ul>
+            <ul class="f_links">
+                <li class="title">uw gegevens</li>
+                <li><a href="account.php" title="Account aanpassen">Account aanpassen</a></li>
+                <li><a href="bestel_historie.php" title="Bestelhistorie">Bestelhistorie</a></li>
+                <li><a href="traceer_uw_bestelling.php" title="Traceer uw bestelling">Traceer uw bestelling</a></li>
+            </ul>
+
+            <ul class="link-social">
+                <li class="title">volg ons</li>
+                <li><a href="http://twitter.com/#!/deonlinedrogist" target="_blank"><span class="dod-ficon-twitter"></span>Twitter</a></li>
+                <li><a href="http://www.facebook.com/pages/De-Online-Drogist/202434086485560" target="_blank"><span class="dod-ficon-facebook"></span>Facebook</a></li>
+                <li><a href="https://www.deonlinedrogist.nl/blog" target="_blank"><span class="dod-ficon-blogger"></span>Blog</a></li>
+                <li><a href="https://plus.google.com/100831886366776414916/" target="_blank"><span class="dod-ficon-google"></span>Google +</a></li>
+            </ul>
+            <div id="fb-root"></div>
+
+            <?php
+            if (strstr($this->mobileUrl, '?')) {
+                $this->mobileUrl .= '&forcemobile=1';
+            } else {
+                $this->mobileUrl .= '?forcemobile=1';
+            }
+            ?>
+            <a href="<?php if (isset($this->mobileUrl)) echo $this->mobileUrl; else echo "https://m.deonlinedrogist.nl/?forcemobile=1"; ?>" title="Mobiele versie" class="link-mobile"><span class="dod-ficon-mobile"></span>Mobiele versie</a>
+        </div>
+    <?php }?>
+</div>
+</div> <!-- // div: page-container -->
+</div> <!-- // div: wrapper -->
+<div id="msgDiv"></div>
+<div id="headerBG"></div>
+<?php
+if ($sql_txt_output != '') {
+    ?>
+    <pre>
+    Num queries: <?php echo $sql_count_queries;
+        ?>
+        <br />
+        <?php
+        echo $sql_txt_output; ?>
+</pre>
+<?php
+}
+if (MOUSEFLOW_ACTIVE == "true") {
+    ?>
+    <script type="text/javascript">
+        var _mfq = _mfq || [];
+        (function () {
+            var mf = document.createElement("script"); mf.type = "text/javascript"; mf.async = true;
+            mf.src = "//cdn.mouseflow.com/projects/318a5133-1d63-461c-9572-d779cda40b8b.js";
+            document.getElementsByTagName("head")[0].appendChild(mf);
+        })();
+    </script>
+<?php
+}
+if (VWO_ACTIVE == "true") {
+    ?>
+    <script type='text/javascript'>
+        var _vwo_code=(function(){
+            var account_id=67718,
+                settings_tolerance=2000,
+                library_tolerance=2500,
+                use_existing_jquery=false,
+// DO NOT EDIT BELOW THIS LINE
+                f=false,d=document;return{use_existing_jquery:function(){return use_existing_jquery;},library_tolerance:function(){return library_tolerance;},finish:function(){if(!f){f=true;var a=d.getElementById('_vis_opt_path_hides');if(a)a.parentNode.removeChild(a);}},finished:function(){return f;},load:function(a){var b=d.createElement('script');b.src=a;b.type='text/javascript';b.innerText;b.onerror=function(){_vwo_code.finish();};d.getElementsByTagName('head')[0].appendChild(b);},init:function(){settings_timer=setTimeout('_vwo_code.finish()',settings_tolerance);this.load('//dev.visualwebsiteoptimizer.com/j.php?a='+account_id+'&u='+encodeURIComponent(d.URL)+'&r='+Math.random());var a=d.createElement('style'),b='body{opacity:0 !important;filter:alpha(opacity=0) !important;background:none !important;}',h=d.getElementsByTagName('head')[0];a.setAttribute('id','_vis_opt_path_hides');a.setAttribute('type','text/css');if(a.styleSheet)a.styleSheet.cssText=b;else a.appendChild(d.createTextNode(b));h.appendChild(a);return settings_timer;}};}());_vwo_settings_timer=_vwo_code.init();
+    </script>
+<?php
+}
+?>
+<?php echo $sociomantic->getCustomerJs() ?>
+<?php echo $sociomantic->getGeneralJs() ?>

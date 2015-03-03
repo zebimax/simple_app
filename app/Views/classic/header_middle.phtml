@@ -1,0 +1,178 @@
+<div id="header">
+    <div id="logo">
+        <?php
+        echo '<a href="' . tep_href_link(FILENAME_DEFAULT, 'skin=none') . '" class="logo">' . STORE_NAME . '</a>';
+        switch ($skinId) {
+            case "biodavitymea":
+                echo '<a href="' . tep_href_link("index.php", 'manufacturers_id=' . 31) . '" class="bional">' . STORE_NAME . '</a>';
+                echo '<a href="' . tep_href_link("index.php", 'manufacturers_id=' . 51) . '" class="davitamon">' . STORE_NAME . '</a>';
+                echo '<a href="' . tep_href_link("index.php", 'manufacturers_id=' . 423) . '" class="yema">' . STORE_NAME . '</a>';
+                break;
+            case "drfix":
+                echo '<a href="/sur-plus-dr-fix-m-539.html" class="skin">' . STORE_NAME . '</a>';
+                break;
+            default:
+                if ($skin_page)
+                    echo '<a href="' . $skin_page . '"  class="skin">' . STORE_NAME . '</a>';
+                else
+                    echo '<a href="index.php"  class="skin">' . STORE_NAME . '</a>';
+                break;
+        }
+        ?>
+        <?php
+        if ($skinId == 'nhs') {
+            $referrer = '';
+            $website = '';
+            if (isset($_GET['referrer']) && !empty($_GET['referrer'])) {
+                $referrer = rawurlencode($_GET['referrer']);
+            }
+            if (isset($_GET['website']) && !empty($_GET['website'])) {
+                $website = rawurlencode($_GET['website']);
+            }
+            $back_urls = $_SESSION['back-urls'];
+            if (!$back_urls) {
+                $back_urls = array();
+            }
+            $back_urls[] = $_SERVER['REQUEST_URI'];
+            end($back_urls);
+            $last_back_url = key($back_urls);
+            $_SESSION['back-urls'] = $back_urls;
+            ?>
+            <a class="button-nhs button-back"
+               style="display:none;"><span><span>Keer terug naar de e-shop van Nestl &eacute; Health Science</span></span></a>
+            <script type="text/javascript">
+                //<![CDATA[
+                var previous_url = '<?php echo $referrer ?>';
+                var website = '<?php echo $website ?>';
+                if (previous_url != '' && website != '') {
+                    document.cookie = 'dodnhs-url=https://eshop.nestlehealthscience.nl/' + website + '/' + previous_url + '; path=/;';
+                }
+                ;
+                var get_url = document.cookie.replace(/(?:(?:^|.*;\s*)dodnhs-url\s*\=\s*([^;]*).*$)|^.*$/, "$1");
+                if (get_url) {
+                    jQuery('.button-nhs.button-back').show().attr('href', get_url + '?backurl=<?php echo $last_back_url ?>');
+                }
+                ;
+                //]]>
+            </script>
+            <?php
+            echo '<div class="header-page-title">Bestelpagina</div>';
+        }
+        ?>
+        <?php
+        if (strpos(getStylesheet(), 'moederdag') !== false) {
+            echo '<a href="kadowinkel-c-596.html" class="sublogoLnk">Alles voor moeder...</a>';
+        }
+        ?>
+
+    </div>
+
+    <div id="menuAccount" <?php if (!tep_session_is_registered('customer_id')) { ?>class="menu-login"
+         <?php }else{ ?>class="menu-account"<?php } ?>>
+        <?php if ($skinId == 'nhs') {
+            echo '<a href="' . $skin_page . '" class="first">Home</a>';
+        } ?>
+        <?php if (!tep_session_is_registered('customer_id')) { ?>
+            <a href="<?php echo tep_href_link(FILENAME_LOGIN, '', 'SSL'); ?>"
+               class="login"><?php echo HEADER_TITLE_LOGIN; ?></a>
+        <?php } else { ?>
+            <a href="<?php echo tep_href_link("account.php", '', 'SSL'); ?>"
+               class="login"><?php echo HEADER_TITLE_MY_ACCOUNT; ?></a>
+        <?php } ?>
+        <a href="<?php echo tep_href_link(FILENAME_SHOPPING_CART); ?>"
+           class="shopcard"><?php echo HEADER_TITLE_SHOPPING_CART; ?></a>
+        <a href="<?php echo tep_href_link(FILENAME_CHECKOUT_SHIPPING, '', 'SSL'); ?>"
+           class="checkout"><?php echo HEADER_TITLE_CHECKOUT; ?></a>
+    </div>
+
+    <?php
+    if ($skinId != 'leidapharm') {
+        ?>
+        <div id="menuTop">
+            <?php
+            if (in_array($skinId, $skinWhiteHeaderArray)) {
+                echo '<a href="' . tep_href_link(FILENAME_CONDITIONS) . '" class="link-white">' . LINK_HEADER_CONDITIONS . '</a>';
+                echo '<a href="' . tep_href_link("contactenadvies.php") . '" class="link-white">' . LINK_HEADER_SERVICE . '</a>';
+            } else {
+                echo '<a href="' . tep_href_link(FILENAME_CONDITIONS) . '">' . LINK_HEADER_CONDITIONS . '</a>';
+                echo '<a href="' . tep_href_link("contactenadvies.php") . '">' . LINK_HEADER_SERVICE . '</a>';
+            }
+            ?>
+        </div>
+    <?php } ?>
+
+    <div class="clear"></div>
+    <div id="topBar" class="clearfix">
+        <div id="shopping-cart">
+            <?php
+            if ($enablePageCache && class_exists('page_cache')) {
+                echo "<%CART_CACHE%>";
+            } else {
+                require(DIR_WS_BOXES . 'shopping_cart.php');
+            }
+            ?>
+        </div>
+        <div class="winkel"><a href="/thuiswinkel_certificaat.php"></a></div>
+    </div>
+    <div class="clear"></div>
+    <div id="navigation">
+        <div class="menu clearfix">
+            <ul class="menu-elements">
+                <li class="search-bar">
+                    <?php echo tep_draw_form('quick_find2', tep_href_link(\Controller\SearchController::ADVANCED_SEARCH_URL, '', $requestType, false), 'get', 'id=test-form'); ?>
+                    <div>
+                        <input type="search" id="q-form" autocomplete="off" type="text" name="keywords"
+                               value="<?php echo htmlspecialchars($_GET["keywords"]) ?>"/><input type="submit"
+                                                                                                 value="ZOEK">
+                    </div>
+                    </form>
+                </li>
+                <?php if (!$strippedHeader) { ?>
+                    <li <?php if ($view->getOldPhpSelf() == "/products_new.php") echo 'class="active"'; ?>><a
+                            href="<?php echo tep_href_link('products_new.php') ?>"><?php echo HEADER_TITLE_NIEUW; ?></a>
+                    </li>
+                    <li <?php if ($view->getOldPhpSelf() == "specials.php") echo 'class="active"'; ?>><a
+                            href="<?php echo tep_href_link('specials.php') ?>"><?php echo HEADER_TITLE_AANBIEDINGEN; ?></a>
+                    </li>
+                    <li <?php if ($cPath_array[0] == 1277) echo 'class="active"'; ?>><a
+                            href="<?php echo tep_href_link('index.php', 'cPath=1277') ?>"><?php echo HEADER_TITLE_DIVERSEN; ?></a>
+                    </li>
+                    <li class="cadeau"><a href="<?php echo tep_href_link('index.php', 'cPath=596') ?>"><img
+                                src="<?php echo STATIC_PREPEND; ?>img/cadeau.jpg" width="113" height="39" alt="cadeau"></a></li>
+                <?php } ?>
+            </ul>
+        </div>
+        <?php if (!$strippedHeader) { ?>
+            <div class="menu second clearfix">
+                <ul class="menu-elements">
+                    <li <?php if ($cPath_array[0] == 964) echo 'class="active"'; ?>><a
+                            href="<?php echo tep_href_link('index.php', 'cPath=964') ?>"><?php echo HEADER_TITLE_VITAMINES; ?></a>
+                    </li>
+                    <li <?php if ($cPath_array[0] == 1120) echo 'class="active"'; ?>><a
+                            href="<?php echo tep_href_link('index.php', 'cPath=1120') ?>"><?php echo HEADER_TITLE_ETEN_DRINKEN; ?></a>
+                    </li>
+                    <li <?php if ($cPath_array[0] == 650) echo 'class="active"'; ?>><a
+                            href="<?php echo tep_href_link('index.php', 'cPath=650') ?>"><?php echo HEADER_TITLE_AFVALLEN; ?></a>
+                    </li>
+                    <li <?php if (in_array($cPath_array[0], array(685, 1652, 1651, 2246, 2244, 1129, 1648, 2107))) echo 'class="active"'; ?>>
+                        <a href="<?php echo tep_href_link('index.php', 'cPath=1648') ?>">Gezondheid</a></li>
+                    <li <?php if ($cPath_array[0] == 361) echo 'class="active"'; ?>><a
+                            href="<?php echo tep_href_link('index.php', 'cPath=361') ?>"><?php echo HEADER_TITLE_VERZORGING; ?></a>
+                    </li>
+                    <li <?php if ($cPath_array[0] == 1207) echo 'class="active"'; ?>><a
+                            href="<?php echo tep_href_link('index.php', 'cPath=1207') ?>"><?php echo HEADER_TITLE_PARFUMERIE; ?></a>
+                    </li>
+                    <li <?php if ($cPath_array[0] == 1147) echo 'class="active"'; ?>><a
+                            href="<?php echo tep_href_link('index.php', 'cPath=1147') ?>"><?php echo HEADER_TITLE_SEKSUALITEIT; ?></a>
+                    </li>
+                    <li <?php if ($cPath_array[0] == 598) echo 'class="active"'; ?>><a
+                            href="<?php echo tep_href_link('index.php', 'cPath=598') ?>"><?php echo HEADER_TITLE_ZWANGER_BABY; ?></a>
+                    </li>
+                    <li <?php if ($cPath_array[0] == 917) echo 'class="active"'; ?>><a
+                            href="<?php echo tep_href_link('index.php', 'cPath=917') ?>"><?php echo HEADER_TITLE_SPORT; ?></a>
+                    </li>
+                </ul>
+            </div>
+        <?php } ?>
+    </div>
+</div>

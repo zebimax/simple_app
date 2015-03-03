@@ -1,0 +1,159 @@
+<div class="page-header" xmlns="http://www.w3.org/1999/html">
+    <h1>Translate project.</h1>
+    <div class="row">
+        <div class="col-xs-6">
+            <div class="form-group">
+                <label for="products_brand_select">Select brand:</label>
+                <select class="form-control" id="products_brand_select">
+                <?php foreach ($brands as $brand) :?>
+                        <option value="<?php echo $brand['id']?>"><?php echo $brand['name']?></option>
+            <?php endforeach?>
+                </select>
+            </div>
+        </div>
+        <div class="col-xs-6">
+            <div class="form-group">
+                <label for="products_category_select">Select category:</label>
+                <select class="form-control" id="products_category_select">
+                    <?php foreach ($categories as $category) :?>
+                        <option value="<?php echo $category['id']?>"><?php echo $category['long_name']?></option>
+                    <?php endforeach?>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-6">
+            <div class="btn-group" role="group" aria-label="...">
+                <?php foreach ($languages as $id => $language):
+                    $activeClass = $language['is_selected_base'] ? ' btn-primary' : '';
+                    ?>
+                    <button type="button" class="btn btn-default base-language-select<?php
+                    echo $activeClass
+                    ?>" data-base_language_selected="<?php
+                    echo $language['is_selected_base']
+                    ?>" data-base_language_id="<?php
+                    echo $id
+                    ?>"><?php
+                    echo strtoupper($language['code'])
+                    ?><img src="<?php
+                    echo STATIC_PREPEND . '/app' . MVC_APP_NAMESPACE_FOLDER . '/public/img/' . $language['directory'] . '/' . $language['image']
+                        ?>"></button>
+                <?php endforeach?>
+            </div>
+        </div>
+        <div class="col-xs-6">
+            <div class="btn-group" role="group" aria-label="...">
+                <?php foreach ($languages as $id => $language):
+                    $activeClass = $language['is_selected_translate'] ? ' btn-primary' : '';
+                    ?>
+                    <button type="button" class="btn btn-default translate-language-select<?php
+                    echo $activeClass
+                    ?>" data-translate_language_selected="<?php
+                    echo $language['is_selected_translate']
+                    ?>" data-translate_language_id="<?php
+                    echo $id
+                    ?>"><?php
+                    echo strtoupper($language['code'])
+                    ?><img src="<?php
+                    echo STATIC_PREPEND . '/app' . MVC_APP_NAMESPACE_FOLDER . '/public/img/' . $language['directory'] . '/' . $language['image']
+                        ?>"></button>
+                <?php endforeach?>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="input-group">
+                <span class="input-group-addon">
+                    <label for="not_translated_name">not translated name</label>
+                    <input type="checkbox" id="not_translated_name" aria-label="...">
+                    <label for="not_translated_description">not translated description</label>
+                    <input type="checkbox" id="not_translated_description" aria-label="...">
+                    <label for="not_translated_tagline">not translated tagline</label>
+                    <input type="checkbox" id="not_translated_tagline" aria-label="...">
+                </span>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="input-group">
+                <span class="input-group-addon">
+                    <label for="check_translated_all">all</label>
+                    <input type="radio" id="check_translated_all" name="check_translated" aria-label="..." value="0">
+                    <label for="check_translated_translated">translated</label>
+                    <input type="radio" id="check_translated_translated" name="check_translated" aria-label="..." value="1">
+                    <label for="check_translated_not">not translated</label>
+                    <input type="radio" id="check_translated_not" name="check_translated" aria-label="..." value="2">
+                </span>
+                <button id="load_products_btn" type="button" class="btn btn-primary">Load</button>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-6">
+            <div class="form-group">
+                <label for="products_limit_select">Rows:</label>
+                <select class="form-control" id="products_limit_select">
+                    <option selected>10</option>
+                    <option>20</option>
+                    <option>50</option>
+                    <option>100</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-xs-6">
+            <ul class="pagination">
+                <?php foreach ($paginationLinks as $link) :?>
+                    <li class="<?php
+                    echo $link['active'] . $link['disabled'] . $link['additional']
+                    ?>"><a class="products_pagination" href="#" data-page="<?php
+                        echo $link['link_id']?>"><?php echo $link['link_show']?></a></li>
+                <?php endforeach?>
+            </ul>
+        </div>
+    </div>
+    <div class="alert alert-info" role="alert">Found products: <span id="found_translate_products"><?php echo $list['count']?></div>
+    <div class="alert alert-warning" role="alert">Products not translated: <span id="not_translated_products"><?php
+        echo $list['not_exist_translate']
+            ?></span><br />Names not translated: <span id="names_not_translated"><?php echo $list['names_not_translated']
+            ?></span><br />Descriptions not translated: <span id="descriptions_not_translated"><?php echo $list['descriptions_not_translated']
+            ?></span><br />Tag lines not translated: <span id="taglines_not_translated"><?php echo $list['taglines_not_translated']
+            ?></span></div>
+    <div id="products_list">
+        <?php foreach($list['list'] as $item):?>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><span class="label label-default">Product id <?php echo $item['id']?></span></h3>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-xs-6">
+                                <div class="alert alert-info" role="alert">Product name
+                                    <button type="button" class="btn btn-success copy-item pull-right" data-copy-item="name" data-product-id="<?php echo $item['id']?>">Copy &gt;&gt;</button>
+                                </div>
+                                <div data-item="name" data-product-id="<?php echo $item['id']?>"><?php echo $item['name']?></div>
+                                <div class="alert alert-info" role="alert">Product description
+                                    <button type="button" class="btn btn-success copy-item pull-right" data-copy-item="description" data-product-id="<?php echo $item['id']?>">Copy &gt;&gt;</button>
+                                </div>
+                                <div data-item="description" data-product-id="<?php echo $item['id']?>"><?php echo $item['description']?></div>
+                                <div class="alert alert-info" role="alert">Product tagline
+                                    <button type="button" class="btn btn-success copy-item pull-right" data-copy-item="tagline" data-product-id="<?php echo $item['id']?>">Copy &gt;&gt;</button>
+                                </div>
+                                <div data-item="tagline" data-product-id="<?php echo $item['id']?>"><?php echo $item['tagline']?></div>
+                        </div>
+                        <div class="col-xs-6">
+                            <div class="input-group">
+                                <input type="text" data-product_id="<?php echo $item['id']?>" class="form-control modifiable translate_product_name" value="<?php echo $item['translate_name']?>">
+                                <textarea rows="20" data-product_id="<?php echo $item['id']?>" class="form-control modifiable translate_product_description" ><?php echo $item['translate_description']?></textarea>
+                                <input type="text"  data-product_id="<?php echo $item['id']?>" class="form-control modifiable translate_product_tagline" value="<?php echo $item['translate_tagline']?>">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="btn-group">
+                    <button type="button" class="btn btn-success save_product_translate" data-product-id="<?php echo $item['id']?>">Save</button>
+                </div>
+            </div>
+        <?php endforeach?>
+    </div>
+</div>

@@ -1,0 +1,42 @@
+<div class="thuiswinkel-sidebar">
+    <div class="thuiswinkel-sidebar-container">
+        <div class="thuiswinkel-title" onclick="javascript:window.open('https://www.kiyoh.nl/de_online_drogist/')">
+            <span class="icon-sprite-thuiswinkel-small"></span><?php echo Thuiswinkel_waarborg?><span class="thuiswinkel-subtitle"><?php echo klantenbeoordeling?></span>
+        </div>
+        <div class="thuiswinkel-rating" onclick="javascript:window.open('https://www.kiyoh.nl/de_online_drogist/')">
+            <span class="thuiswinkel-score"><span><?php echo TWW_SCORE ?></span></span>
+            <div class="fleft">
+                <div class="thuiswinkel-stars"><span class="thuiswinkel-stars-container" style="width:<?php echo TWW_SCORE*10 ?>%"><span class="thuiswinkel-stars-active"></span></span></div>
+                <p class="thuiswinkel-review-count"><?php echo TWW_TOTAL ?> <?php echo Thuiswinkel_reviews?></p>
+            </div>
+        </div>
+        <div class="thuiswinkel-reviews">
+            <ul class="thuiswinkel-reviews-container">
+                <li class="thuiswinkel-review-item">
+                    <p>&quot; <?php echo TWW_MESSAGE_1 ?> &quot;</p>
+                    <span class="thuiswinkel-review-author"><?php echo TWW_AUTHOR_1 ?> <?php echo TWW_TIME_1 ?></span>
+                    <a class="thuiswinkel-review-link" href="https://www.kiyoh.nl/de_online_drogist/" target="_blank"><?php echo meer?></a>
+                </li>
+                <li class="thuiswinkel-review-item">
+                    <p>&quot; <?php echo TWW_MESSAGE_2 ?> &quot;</p>
+                    <span class="thuiswinkel-review-author"><?php echo TWW_AUTHOR_2 ?> <?php echo TWW_TIME_2 ?></span>
+                    <a class="thuiswinkel-review-link" href="https://www.kiyoh.nl/de_online_drogist/" target="_blank"><?php echo meer?></a>
+                </li>
+                <li class="thuiswinkel-review-item">
+                    <p>&quot; <?php echo TWW_MESSAGE_3 ?> &quot;</p>
+                    <span class="thuiswinkel-review-author"><?php echo TWW_AUTHOR_3 ?> <?php echo TWW_TIME_3 ?></span>
+                    <a class="thuiswinkel-review-link" href="https://www.kiyoh.nl/de_online_drogist/" target="_blank"><?php echo meer?></a>
+                </li>
+                <li class="thuiswinkel-review-item">
+                    <p>&quot; <?php echo TWW_MESSAGE_4 ?> &quot;</p>
+                    <span class="thuiswinkel-review-author"><?php echo TWW_AUTHOR_4 ?> <?php echo TWW_TIME_4 ?></span>
+                    <a class="thuiswinkel-review-link" href="https://www.kiyoh.nl/de_online_drogist/" target="_blank"><?php echo meer?></a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="<?php echo STATIC_PREPEND;?>includes/javascript/jquery.fs.scroller.min.js"></script>
+<script type="text/javascript">
+    $(".thuiswinkel-reviews").scroller();
+</script>

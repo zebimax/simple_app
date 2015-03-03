@@ -1,0 +1,123 @@
+<!-- body -->
+<div id="content" class="clearfix homepage">
+    <div id="left_col">
+        <?php
+        include(MVC_VIEW_DIR . 'boxes' . DIRECTORY_SEPARATOR . 'search_left.phtml');
+        include(MVC_VIEW_DIR . 'boxes' . DIRECTORY_SEPARATOR . 'trust_pilot.phtml');
+        ?>
+    </div>
+    <!-- left_navigation -->
+    <!-- left_navigation_eof -->
+    <!-- body_text -->
+    <div id="right_col" class="product product-special">
+        <div id="productLIistObjID">
+            <?php echo $this->conditionTemplate(
+                '<div class="box-counter">in deze categorie: <span class="box-counter-container"><strong>%s</strong> <span>artikelen</span></span></div>',
+                array($productsCount),
+                $productsCount
+            );?>
+            <div class="clear"></div>
+            <div id="advanced-search" class="clearfix">
+                <?php echo $searchForm?>
+                <?php if ($productsCount) :?>
+                    <?php
+                    if($productsCount > $defaultLimit){
+                        echo "<span class='as-info2'>Totaal <strong>{$productsCount}</strong> artikelen</span>";
+                    }
+                    ?>
+                    <div id='wp_page_numbers'>
+                        <?php echo $pagination; ?>
+                    </div>
+                <?php endif ?>
+
+            </div>
+            <!-- end #advanced-search-->
+            <div id="prod-results" data-product_list="Specials" class="clearfix">
+                <?php
+                if (sizeof($products)) {
+                $imageButton = tep_image_button('button_voorraad.gif', "Voorraad UPDATE");
+                foreach ($products as $product) { ?>
+                        <div class="product_link prod-box-min <?php echo $this->stringByCondition($product['isLast'], ' last', '');?>">
+                            <?php echo $this->stringByCondition(!$product['quantity'], '<div class="leverbaar hide">op dit moment<br/>niet leverbaar</div>', '');?>
+                            <div class="product-title"><a href="<?php echo $product['link'];?>"><?php echo $product['name'];?></a></div>
+                            <a href="<?php echo $product['link']?>" class="productlink"></a>
+                            <div class="thumb-container">
+                                <?php echo $this->stringByCondition(
+                                    $product['freeShipping'],
+                                    '<div class="label-freeshipping">Gratis verzending</div>',
+                                    ''
+                                );?>
+                                <div class="dicount"><p class="procentage"><?php echo $product['discount'];?>%</p><span class="text">Korting</span></div>
+                                <?php echo $product['image']; ?>&nbsp;
+                            </div>
+                            <div class="mini-details">
+                                Inhoud: <?php echo $product['volume'];?><br />
+                                Voorraad: <?php echo $product['quantity_for_display'];?>
+                            </div>
+                            <div class="price">
+                                <span class="old-price"><?php echo $product['old_price'];?></span>
+                                <span class="new-price"><?php echo $product['new_price'];?></span>
+                            </div>
+                            <div class="clear"></div>
+                            <div class="buy-box clearfix">
+                                <?php echo $this->stringByCondition(
+                                    !$product['quantity'],
+                                    function() use ($product, $imageButton){
+                                        return sprintf(
+                                            '<a href="javascript:void(0);" onclick="openVoorraad(%s)">%s</a>'
+                                            .'<input type="hidden" class="products_info_data" data-id="%d" data-name="%s" data-category="%s" data-brand="%s" data-orig-price="%s"'
+                                            . ' data-special-price="%s" data-position="%d"/>',
+                                            $product['id'],
+                                            $imageButton,
+                                            $product['id'],
+                                            $product['name'],
+                                            $product['category'],
+                                            $product['brand_name'],
+                                            $product['price'],
+                                            $product['new_price'],
+                                            $product['position']
+                                        );
+                                    },
+                                    function() use ($product){
+                                        global $products_min_order_qty;
+                                        $products_min_order_qty = $product['min_order_qty'];
+                                        return sprintf(
+                                            '%s<input type="button" class="addToCart products_info_data" data-id="%d" data-name="%s" data-category="%s" data-brand="%s" data-orig-price="%s"'
+                                            . ' data-special-price="%s" data-position="%d" value="in winkelwagen" onclick="addIntoCart(%s)"/>',
+                                            tep_out_product_quantity($product['id']),
+                                            $product['id'],
+                                            $product['name'],
+                                            $product['category'],
+                                            $product['brand_name'],
+                                            $product['price'],
+                                            $product['new_price'],
+                                            $product['position'],
+                                            $product['id']
+                                        );
+                                    }
+                                );?>
+                            </div><!-- end .buy-box-->
+                        </div><!-- prod-box-min -->
+                        <?php }
+                } else {
+                    echo '<div class="noproduct"><b>' . TEXT_NO_PRODUCTS . '</b></div>';
+                } ?>
+            </div>
+            <?php
+            echo $this->stringByCondition(
+                $pagination,
+                '<div id="advanced-search" class="clearfix">
+                    <div class="clear"></div>
+                    <div id="wp_page_numbers">' . $pagination . '</div></div>'
+                ,'');
+            ?>
+        </div>
+        <?php
+        $contactinfo_type = 'prod-list';
+        include(MVC_VIEW_DIR . 'contacts.phtml');
+        ?>
+    </div>
+</div><!-- body_eof -->
+<!-- footer -->
+<?php require(MVC_VIEW_DIR . 'footer.phtml'); ?>
+<!-- footer_eof -->

@@ -1,0 +1,173 @@
+<?php
+$content = '';
+$artnrUpArray = array(
+    'pols' => array(
+        '742751',
+		'742747',
+		'742752',
+		'742748',
+		'742753',
+		'742749',
+		'742754',
+		'742750',
+		'742781',
+		'742768',
+		'742782',
+		'742769',
+		'742783',
+		'742780',
+		'742787',
+		'742786',
+		'742832',
+		'742838',
+		'742833',
+		'742839',
+		'742834',
+		'742840',
+		'742835',
+		'742841',
+		'742836',
+		'742842',
+		'742837',
+		'742843',
+		'742784',
+		'742785',
+		'742812',
+		'742816',
+		'742813',
+		'742817',
+		'742814',
+		'742818',
+		'742815',
+		'742819'
+    ),
+    'elleboog' => array(
+        '742756',
+		'742757',
+		'742758',
+		'742759',
+		'742805',
+		'742806',
+		'742807',
+		'742808',
+		'742809',
+		'742810',
+		'742811',
+		'742800',
+		'742801',
+		'742802',
+		'742803',
+		'742804'
+    ),
+    'hals' => array(
+    	'742740',
+		'742741',
+		'742742'
+),
+    'rug' => array(
+    	'742788',
+		'742789',
+		'742790',
+		'742791',
+		'742792',
+		'742746'
+),
+    'knie' => array(
+    	'742764',
+		'742765',
+		'742766',
+		'742767',
+		'742793',
+		'742794',
+		'742795',
+		'742796',
+		'742797',
+		'742798',
+		'742799'
+),
+    'enkel' => array(
+        '742820',
+		'742821',
+		'742822',
+		'742823',
+		'742824',
+		'742825',
+		'742826',
+		'742827',
+		'742828',
+		'742829',
+		'742830',
+		'742831',
+		'742760',
+		'742761'
+),
+    'arm' => array('742755')
+);
+
+$productInfo = \Macaw::getKey('product_info');
+if (isset($productInfo['artnr_up'])) {
+    switch (true) {
+        case in_array($productInfo['artnr_up'], $artnrUpArray['pols']) :
+            $content = '<div id="banner_pols"></div>';
+            break;
+        case in_array($productInfo['artnr_up'], $artnrUpArray['elleboog']) :
+            $content = '<div id="banner_elleboog"></div>';
+            break;
+        case in_array($productInfo['artnr_up'], $artnrUpArray['hals']) :
+            $content = '<div id="banner_hals"></div>';
+            break;
+        case in_array($productInfo['artnr_up'], $artnrUpArray['rug']) :
+            $content = '<div id="banner_rug"></div>';
+            break;
+        case in_array($productInfo['artnr_up'], $artnrUpArray['knie']) :
+            $content = '<div id="banner_knie"></div>';
+            break;
+        case in_array($productInfo['artnr_up'], $artnrUpArray['enkel']) :
+            $content = '<div id="banner_enkel"></div>';
+            break;
+        case in_array($productInfo['artnr_up'], $artnrUpArray['arm']) :
+            $content = '<div id="banner_arm"></div>';
+            break;
+    }
+} elseif (isset($_GET['keywords'])) {
+    switch($_GET['keywords']){
+        case '742820 OR 742821 OR 742822 OR 742823 OR 742824 OR 742825 OR 742826 OR 742827 OR 742828 OR 742829 OR 742830 OR 742831 OR 742760 OR 742761':
+        case '742821 OR 742822 OR 742823 OR 742824 OR 742825 OR 742826 OR 742827 OR 74282':
+        case '742760 OR 742761':
+            $content = '<div id="banner_enkel"></div>';
+            break;
+        case '742764 OR 742765 OR 742766 OR 742767 OR 742793 OR 742794 OR 742795 OR 742796 OR 742797 OR 742798 OR 742799':
+        case '742764 OR 742765 OR 742766 OR 742767':
+        case '742793 OR 742794 OR 742795 OR 742796 OR 742797 OR 742798 OR 742799':
+            $content = '<div id="banner_knie"></div>';
+            break;
+        case '742788 OR 742789 OR 742790 OR 742791 OR 742792 OR 742746':
+        case '742788 OR 742789 OR 742790 OR 742791 OR 742792':
+            $content = '<div id="banner_rug"></div>';
+            break;
+        case '742740 OR 742741 OR 742742':
+            $content = '<div id="banner_hals"></div>';
+            break;
+        case '742756 OR 742757 OR 742758 OR 742759 OR 742805 OR 742806 OR 742807 OR 742808 OR 742809 OR 742810 OR 742811 OR 742800 OR 742801 OR 742802 OR 742803 OR 742804':
+        case '742756 OR 742757 OR 742758 OR 742759':
+        case '742805 OR 742806 OR 742807 OR 742808 OR 742809 OR 742810 OR 742811':
+        case '742800 OR 742801 OR 742802 OR 742803 OR 742804':
+            $content = '<div id="banner_elleboog"></div>';
+            break;
+        case '742751 OR 742747 OR 742752 OR 742748 OR 742753 OR 742749 OR 742754 OR 742750 OR 742781 OR 742768 OR 742782 OR 742769 OR 742783 OR 742780 OR 742787 OR 742786 OR 742832 OR 742838 OR 742833 OR 742839 OR 742834 OR 742840 OR 742835 OR 742841 OR 742836 OR 742842 OR 742837 OR 742843 OR 742784 OR 742784 OR 742785 OR 742812 OR 742816 OR 742813 OR 742817 OR 742814 OR 742818 OR 742815 OR 742819':
+        case '742751 OR 742747 OR 742752 OR 742748 OR 742753 OR 742749 OR 742754 OR 742750':
+        case '742781 OR 742768 OR 742782 OR 742769 OR 742783 OR 742780 OR 742787 OR 742786':
+        case '742832 OR 742838 OR 742833 OR 742839 OR 742834 OR 742840 OR 742835 OR 742841 OR 742836 OR 742842 OR 742837 OR 742843':
+        case '742784 OR 742785':
+        case '742812 OR 742816 OR 742813 OR 742817 OR 742814 OR 742818 OR 742815 OR 742819':
+            $content = '<div id="banner_pols"></div>';
+            break;
+        case "742755":
+            $content = '<div id="banner_arm"></div>';
+            break;
+    }
+    
+} else {
+    $content = '<div id="banner_alleproducten"></div>';    
+}
+echo $content;

@@ -1,0 +1,32 @@
+<div class="categ-list">
+    <div class="verfijnResultaat">VERFIJN RESULTAAT: <?php echo $clearCategoryLink;?></div>
+</div>
+<div class="categ-list">
+    <ul class="category-noline">
+        <li class="categ-title">Categorie</li>
+        <?php
+        foreach ($categories as $category) {
+            $categoryText = sprintf('%s (%s)', $category['name'], $category['quantity']);
+            $linkText = $category['current'] ? '<b>' . $categoryText . '</b>' : $categoryText;
+            echo sprintf('<li><a href="%s">%s</a></li>', $category['link'], $linkText);
+        }
+        echo $leftBackLink;?>
+    </ul>
+    <?php if (isset($brands) && isset($leftBrandBackLink)): ?>
+    <ul class="category-noline">
+        <li class="categ-title">MERK</li>
+        <?php
+        foreach ($brands as $brand) {
+            $quantityStr = $brand['quantity'] !== false
+                ? sprintf(' (%s)', $brand['quantity'])
+                : '';
+            $brandText = $brand['name'] . $quantityStr;
+            $linkText = $brand['current'] ? '<b>' . $brandText . '</b>' : $brandText;
+            echo sprintf('<li><a href="%s">%s</a></li>', $brand['link'], $linkText);
+        }
+
+        ?>
+    </ul>
+    <?php echo $leftBrandBackLink; endif?>
+
+</div><!-- end .categ-list-->

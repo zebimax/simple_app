@@ -1,0 +1,52 @@
+<div class="page-header" xmlns="http://www.w3.org/1999/html">
+    <div class="panel panel-default">
+        <div class="panel-heading">products expensive than retail advice price</div>
+        <div class="panel-body">
+            <div class="alert alert-info" role="alert">Found products: <span id="found_products"><?php echo $list['count']?></div>
+            <div class="row">
+                <div class="col-xs-6">
+                    <div class="form-group">
+                        <label for="products_limit_select">Rows:</label>
+                        <select class="form-control" id="products_limit_select">
+                            <option selected>50</option>
+                            <option>100</option>
+                            <option>200</option>
+                            <option>1000</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-xs-6">
+                    <ul class="pagination">
+                        <?php foreach ($paginationLinks as $link) :?>
+                            <li class="<?php
+                            echo $link['active'] . $link['disabled'] . $link['additional']
+                            ?>"><a class="products_pagination" href="#" data-page="<?php
+                                echo $link['link_id']?>"><?php echo $link['link_show']?></a></li>
+                        <?php endforeach?>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!-- Table -->
+        <table class="table" id="products_list_table">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>omschrijving</th>
+                    <th>artnr_up</th>
+                    <th>verkoop_incl</th>
+                    <th>advies</th>
+                </tr>
+            </thead>
+            <?php foreach($list['list'] as $item):?>
+            <tr class="products_row">
+                <td><?php echo $item['id']?></td>
+                <td><?php echo $item['definition']?></td>
+                <td><?php echo $item['article']?></td>
+                <td><?php echo $item['price']?></td>
+                <td><?php echo $item['advice_price']?></td>
+            </tr>
+            <?php endforeach?>
+        </table>
+    </div>
+</div>

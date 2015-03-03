@@ -1,0 +1,8 @@
+{
+  "autoload": {
+    "psr-0": {"Solarium" : "/library"},
+    "psr-0": {"" : "classes"},
+    "classmap":["classes"]
+  },
+  "require":{"solarium/solarium": "dev-master"}
+}

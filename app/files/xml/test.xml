@@ -1,0 +1,82 @@
+<review>
+    <id>1003528</id>
+
+    <customer>
+        <name><![CDATA[Rob]]></name>
+        <email>rob2339@planet.nl</email>
+        <place><![CDATA[Oosterhout]]></place>
+        <date>2015-01-17 21:41:06</date>
+
+        <type>
+            <title>0</title>
+            <specific>0</specific>
+            <relation>1</relation>
+        </type>
+    </customer>
+
+    <total_score>9</total_score>
+    <questions>
+
+        <question>
+            <id>2</id>
+            <title>Prijs</title>
+            <score>-1</score>
+        </question>
+
+        <question>
+            <id>3</id>
+            <title>Personeel</title>
+            <score>-1</score>
+        </question>
+
+        <question>
+            <id>4</id>
+            <title>Kwaliteit</title>
+            <score>-1</score>
+        </question>
+
+        <question>
+            <id>5</id>
+            <title>Communicatie</title>
+            <score>-1</score>
+        </question>
+
+        <question>
+            <id>6</id>
+            <title>Snelheid/Levertijd</title>
+            <score>-1</score>
+        </question>
+
+        <question>
+            <id>7</id>
+            <title>Betrouwbaarheid</title>
+            <score>-1</score>
+        </question>
+
+        <question>
+            <id>8</id>
+            <title>Afspraken nakomen</title>
+            <score>-1</score>
+        </question>
+
+        <question>
+            <id>9</id>
+            <title>Nazorg &amp; Garantie</title>
+            <score>-1</score>
+        </question>
+
+        <question>
+            <id>10</id>
+            <title>Kennis &amp; Vakmanschap</title>
+            <score>-1</score>
+        </question>
+
+    </questions>
+    <recommendation>Ja</recommendation>
+
+    <positive><![CDATA[Snel en efficient]]></positive>
+    <negative><![CDATA[]]></negative>
+    <purchase><![CDATA[]]></purchase>
+    <reaction><![CDATA[]]></reaction>
+    <extra_options><m><![CDATA[5195243]]></m></extra_options>
+</review>

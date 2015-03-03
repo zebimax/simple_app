@@ -1,0 +1,14 @@
+.modified
+{
+    border-color: red;
+    border-style: dashed;
+    border-width: thin;
+}
+.abs-info {
+    position: fixed;
+    right: 25px;
+    top: 80%;
+    width: 300px;
+    height: 15%;
+    z-index: 100;
+}

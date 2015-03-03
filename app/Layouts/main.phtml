@@ -1,0 +1,263 @@
+<?php
+$request_type = \Macaw::getKey('request_type');
+$currencies = \Macaw::getKey('currencies');
+$cart = \Macaw::getKey('cart');
+$strippedHeader = \Macaw::getKey('stripped_header');
+$freeShippingNl = \Macaw::getKey('freeShippingNl');
+$language = \Macaw::getKey('language');
+$PHP_SELF = \Macaw::getKey('PHP_SELF');
+$danonewinkel = \Macaw::getKey('is_danonwinkel');
+$solrVariantRetest2 = \Macaw::getConfig('solrVariantRetest2');
+$mobileUrl = \Macaw::getKey('mobileUrl');
+$sociomantic = \Macaw::getKey('sociomantic');
+$skinId = \Macaw::getKey('skin');
+$messageStack = \Macaw::getKey('messageStack');
+$languages_id = \Macaw::getKey('languages_id');
+$seo_urls = \Macaw::getKey('seo_urls');
+$timeZone = new DateTime('Europe/Amsterdam');
+$time_Amsterdam = strtotime($timeZone->format('H:i'));
+$skin_page = \Macaw::getKey('skin_page');
+$skin_parameters = \Macaw::getKey('skin_parameters');
+$skin_box = \Macaw::getKey('skin_box');
+$enablePageCache = \Macaw::getKey('enable_page_cache');
+$skin_phone = \Macaw::getKey('skin_phone');
+$couponHelper = \Macaw::getKey('coupon_helper');
+$columnLeftTest2 = \Macaw::getKey('columnLeftTest2');
+?>
+
+<?php (($request_type == 'SSL') ? $base_url = HTTPS_SERVER : $base_url = HTTP_SERVER); ?>
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html <?php echo HTML_PARAMS; ?>>
+<head>
+    <link href="https://plus.google.com/100831886366776414916" rel="publisher" />
+    <title><?php echo $this->title;?></title>
+    <?php if ($this->description):?> <meta name="Description" content="<?php echo $this->description;?>"><?php endif?>
+    <?php if ($this->keyw):?> <meta name="Keywords" content="<?php echo $this->keyw;?>"><?php endif?>
+    <meta http-equiv="Content-Type" content="text/html; charset=<?php echo CHARSET;?>">
+    <link rel="shortcut icon" href="<?php echo STATIC_PREPEND;?>favicon.ico" type="image/x-icon" />
+    <meta name="viewport" content="width=device-width, maximum-scale=1">
+    <base href="<?php echo $base_url . DIR_WS_CATALOG; ?>">
+    <?php echo $this->canonicalUrl;?>
+
+    <!-- styles -->
+    <style type="text/css">
+        @font-face {
+            font-family: 'dod-icons';
+            src:url('<?php echo $base_url; ?>/fonts/dod-icons.eot?');
+            src:url('<?php echo $base_url; ?>/fonts/dod-icons.eot?#iefix') format('embedded-opentype'),
+              url('<?php echo $base_url; ?>/fonts/dod-icons.woff?') format('woff'),
+              url('<?php echo $base_url; ?>/fonts/dod-icons.ttf?') format('truetype'),
+              url('<?php echo $base_url; ?>/fonts/dod-icons.svg?#dod-icons') format('svg');
+            font-weight: normal;
+            font-style: normal;
+        }
+    </style>
+    <link rel="stylesheet" type="text/css" href="<?php echo STATIC_PREPEND; ?><?php echo getStylesheet() ?>">
+    <link rel="stylesheet" href="<?php echo STATIC_PREPEND; ?>includes/javascript/base/jquery.ui.all.css" type="text/css">
+    <!-- //styles -->
+    <!--header_libraries_js.php-->
+    <?php
+        if ($_SESSION['visitor_country'] == 'CN') {
+            echo '<script type="text/javascript" src="//lib.sinaapp.com/js/jquery/1.10.2/jquery-1.10.2.min.js"></script>'."\n";
+            echo '<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>'."\n";
+        } else {
+            echo '<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>'."\n";
+            echo '<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>'."\n";
+        }
+    ?>
+    <script type="text/javascript">
+        var JqueryScriptStatic   = '\<script src="<?php echo STATIC_PREPEND; ?>includes/javascript/jquery.1.11.0.min.js"\>\</script\>';
+        var JqueryScript         = '\<script src="<?php echo STATIC_PREPEND; ?>includes/javascript/jquery.1.11.0.min.js"\>\</script\>';
+        window.jQuery || document.write(JqueryScriptStatic);
+        window.jQuery || document.write(JqueryScript);
+    </script>
+
+    <?php
+        if ($_SESSION['visitor_country'] == 'CN') {
+            echo '<script type="text/javascript" src="//lib.sinaapp.com/js/jquery-ui/1.10.2/jquery-ui.min.js"></script>' . "\n";
+        } else {
+            echo '<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>' . "\n";
+        }
+    ?>
+
+    <script type="text/javascript">
+        var JqueryUIScriptStatic = '\<script src="<?php echo STATIC_PREPEND; ?>includes/javascript/jquery-ui.min.1.10.4.js"\>\</script\>';
+        var JqueryUIScript       = '\<script src="<?php echo STATIC_PREPEND; ?>includes/javascript/jquery-ui.min.1.10.4.js"\>\</script\>';
+        window.jQuery.ui || document.write(JqueryUIScriptStatic);
+        window.jQuery.ui || document.write(JqueryUIScript);
+    </script>
+    <script src="<?php echo STATIC_PREPEND; ?>includes/javascript/ui/i18n/jquery.ui.datepicker-nl.js"></script>
+
+    <script type="text/javascript" src="<?php echo STATIC_PREPEND; ?>includes/javascript/css_browser_selector.min.js"></script>
+    <!--end of header_libraries_js.php-->
+
+    <script type="text/javascript" src="<?php echo $static_prepend; ?>includes/javascript/main.js"></script>
+
+    <!--header_js.php-->
+    <?php
+        if ($_SESSION['visitor_country'] != 'CN') {
+            echo '<script src="//www.google-analytics.com/cx/api.js?experiment=VsP7544FTjW-zhn9r_eExw"></script>';
+            echo "<script>cxApi.setChosenVariation($columnLeftTest2);</script>";
+        }
+    ?>
+
+    <script type="text/javascript">
+        $.fn.__tabs = $.fn.tabs;
+        $.fn.tabs = function (a, b, c, d, e, f) {
+            var base = window.location.href.replace(/#.*$/, '');
+            $('ul>li>a[href^="#"]', this).each(function () {
+                var href = $(this).attr('href');
+                $(this).attr('href', base + href);
+            });
+            $(this).__tabs(a, b, c, d, e, f);
+        };
+    </script>
+
+
+    <?php
+    if ($_SESSION['visitor_country'] != 'CN') {
+        if (!$danonewinkel) { // DOD
+            ?>
+            <!-- Google Tag Manager -->
+            <noscript>
+                <iframe src="//www.googletagmanager.com/ns.html?id=GTM-PHNXPG" height="0" width="0" style="display:none;visibility:hidden"></iframe>
+            </noscript>
+
+            <script>
+                (function (w, d, s, l, i) {
+                    w[l] = w[l] || [];
+                    w[l].push({
+                        'gtm.start': new Date().getTime(), event: 'gtm.js'
+                    });
+                    var p = w[l].push;
+                    w[l].push = function(elem) {
+                        p.call(this, elem);
+                        if (
+                            typeof elem.eventCallback === 'function' &&
+                                this.push === arguments.callee
+                            ) {
+                            elem.eventCallback();
+                        }
+                    };
+                    var f = d.getElementsByTagName(s)[0],
+                        j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : '';
+                    j.async = true;
+                    j.src = '//www.googletagmanager.com/gtm.js?id=' + i + dl;
+
+                    f.parentNode.insertBefore(j, f);
+                })(window, document, 'script', 'dataLayer', 'GTM-PHNXPG');
+            </script>
+            <!-- End Google Tag Manager -->
+        <?php } else { ?>
+        <!-- Google Tag Manager -->
+        <noscript>
+            <iframe src="//www.googletagmanager.com/ns.html?id=GTM-532MXC" height="0" width="0" style="display:none;visibility:hidden"></iframe>
+        </noscript>
+
+        <script>
+            (function (w, d, s, l, i) {
+                w[l] = w[l] || [];
+                w[l].push({
+                    'gtm.start': new Date().getTime(), event: 'gtm.js'
+                });
+                var p = w[l].push;
+                w[l].push = function(elem) {
+                    p.call(this, elem);
+                    if (
+                        typeof elem.eventCallback === 'function' &&
+                            this.push === arguments.callee
+                        ) {
+                        elem.eventCallback();
+                    }
+                };
+                var f = d.getElementsByTagName(s)[0],
+                    j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : '';
+                j.async = true;
+                j.src = '//www.googletagmanager.com/gtm.js?id=' + i + dl;
+                f.parentNode.insertBefore(j, f);
+            })(window, document, 'script', 'dataLayer', 'GTM-532MXC');
+        </script>
+        <!-- End Google Tag Manager -->
+    <?php }} else { ?>
+        <script>
+            (function (w, d, s, l) {
+                w[l] = w[l] || [];
+                var p = w[l].push;
+                w[l].push = function(elem) {
+                    p.call(this, elem);
+                    if (
+                        typeof elem.eventCallback === 'function' &&
+                            this.push === arguments.callee
+                        ) {
+                        elem.eventCallback();
+                    }
+                };
+            })(window, document, 'script', 'dataLayer');
+        </script>
+    <?php } ?>
+
+    <noscript>
+        <iframe src="//www.googletagmanager.com/ns.html?id=GTM-PHNXPG" height="0" width="0" style="display:none;visibility:hidden"></iframe>
+    </noscript>
+
+    <script type="text/javascript" src="<?php echo STATIC_PREPEND; ?>app/public/js/googletagmanager.js"></script>
+    <script type="text/javascript" src="<?php echo STATIC_PREPEND; ?>app/public/js/functions.js"></script>
+    <!--end header_js.php-->
+
+    <?php echo $this->pageJs ?>
+</head>
+<body>
+<!-- header -->
+<script type="text/javascript">
+    var WRInitTime=(new Date()).getTime();
+</script>
+<!--[if lt IE 7]>
+<script defer type="text/javascript" src="<?php echo STATIC_PREPEND; ?>javascript/pngfix.js"></script>
+<![endif]-->
+
+<script type="text/javascript">var _elapsedTimeStatusIndicator = 'stringValueDeclaredBeforeLoadingLiveChatJavaScript';</script>
+
+<?php echo $this->skinRenderer('header_top', $this->skin); ?>
+
+<div id="wrapper" class="page-wrapper">
+    <div class="page-container">
+        <?php
+        echo $this->skinRenderer(
+            'header_middle',
+            $this->skin,
+            array(
+                'enablePageCache' => \Macaw::getKey('enable_page_cache'),
+                'view' => $this,
+                'cart' => $cart,
+                'currencies' => $currencies,
+                'requestType' => $request_type,
+                'skinId' => $skinId,
+                'strippedHeader' => $strippedHeader,
+                'couponHelper' => $couponHelper
+
+            )
+        );
+        ?>
+
+
+        <div class="breadcrumb"><?php echo $this->breadcrumb($breadcrumb, $skinId);?></div>
+        <div class="clear"></div>
+
+        <!-- box: promo -->
+        <?php
+
+        if (in_array($cPath_array[0], array(650)) && $_SERVER['PHP_SELF'] == "/index.php" && SHOW_PROMOBOX == "true") { ?>
+            <div class="box-promo-container">
+                <a class="box-promo" href="/advanced_search_result_v3.php?keywords=xls-medical">
+            <span class="promo-img">
+                <img alt="XLS" width="210" height="700" src="<?php echo STATIC_PREPEND; ?>img/xl-s_sidebanner_eurokorting.jpg">
+            </span>
+                </a>
+            </div>
+        <?php } ?>
+        <!-- // box: promo -->
+        <!-- header_eof -->
+        <?php include $this->view ?>
+</body>
+</html>

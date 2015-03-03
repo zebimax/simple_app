@@ -1,0 +1,43 @@
+<script type="text/javascript" >
+    $(function(){
+        if (typeof suggestions !== 'undefined') {
+            suggestions.bindAutocomplete();
+        }
+    });
+</script>
+<div class="header-top">
+    <div class="header-container clearfix">
+        <span class="txt-contact"><span class="dod-ficon-emblem"></span><?php echo LEFT_TITLE?></span>
+        <ul class="list-contact status-icon-active">
+            <li class="li-phone">
+                <a href="javascript:void(0);" class="no-link"><span class="link-container">
+                        <span class="dod-ficon-phone"></span>020 7173893
+                        <?php
+                        if (CHAT_AVAILABLE_FORCE) {
+                            echo "<span class='status-txt-online'>".Nu_bereikbaar."</span>";
+                        }
+                        ?>
+                    </span></a>
+            </li>
+            <li class="li-chat">
+                <?php if (CHAT_AVAILABLE) : ?>
+                    <a href="javascript: window.open('https://www.deonlinedrogist.nl/fusion/visitor/index.php?/default_import/LiveChat/Chat/Request/_sessionID=/_promptType=chat/_proactive=0/_filterDepartmentID=17%2C18/_randomNumber=no1knw6lqxx99w8heyd2ywaaatuapwc2/_fullName=/_email=/', 'livechatwin', 'toolbar=0,location=0,directories=0,status=1,menubar=0,scrollbars=0,resizable=1,width=600,height=680');">
+                        <span class="link-container"><span class="dod-ficon-chat"></span>
+                            <?php echo persoonlijke_chat ?> <span class="status-txt-online">nu online</span>
+                        </span>
+                    </a>
+                <?php else : ?>
+                    <a href="javascript: void(0);" class="no-link">
+                        <span class="link-container"><span class="dod-ficon-chat"></span><?php echo persoonlijke_chat ?></span>
+                    </a>
+                <?php endif; ?>
+            </li>
+            <li>
+                <a href="mailto:klantenservice@dod.nl"><span class="link-container"><span class="dod-ficon-mail"></span>klantenservice@dod.nl</span></a>
+            </li>
+            <li>
+                <a href="product_informatie.php?products_id=<?php if ((isset($product_info['products_id']) && !empty($product_info['products_id']))) { echo $product_info['products_id']; } ?>"><span class="link-container"><span class="dod-ficon-notepad"></span><?php echo ADVIESFORMULIER?></span></a>
+            </li>
+        </ul>
+    </div>
+</div>

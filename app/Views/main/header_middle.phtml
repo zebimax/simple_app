@@ -1,0 +1,80 @@
+<div class="header-middle">
+    <?php echo  '<a href="'. tep_href_link(FILENAME_DEFAULT).'" class="logo-dod">DeOnlineDrogist.nl</a>';?>
+    <!-- Thuiswinkel -->
+    <div class="thuiswinkel-header thuiswinkel-box-mini">
+        <a href="/thuiswinkel_certificaat.php" class="logo-thuiswinkel">Thuiswinkel</a>
+        <span class="thuiswinkel-score"><a href="https://www.kiyoh.nl/de_online_drogist/" target="_blank"><span><?php echo TWW_SCORE ?></span></a></span>
+        <p class="thuiswinkel-review-count"><a href="https://www.kiyoh.nl/de_online_drogist/" target="_blank"><?php echo TWW_TOTAL ?> Thuiswinkel reviews</a></p>
+    </div>
+    <!-- // Thuiswinkel -->
+
+    <ul class="list-account">
+        <?php if (!tep_session_is_registered('customer_id')) {?>
+            <li><a href="<?php echo tep_href_link(FILENAME_LOGIN, '', 'SSL'); ?>"><?php echo LINK_HEADER_REGISTRATION; ?></a></li>
+            <li><a href="<?php echo tep_href_link(FILENAME_LOGIN, '', 'SSL'); ?>"><?php echo LINK_HEADER_LOGIN; ?></a></li>
+        <?php }else{?>
+            <li><a href="<?php echo tep_href_link("logoff.php", '', 'SSL'); ?>"><?php echo LINK_HEADER_LOGOFF; ?></a></li>
+            <li><a href="<?php echo tep_href_link("bestel_historie.php");?>">Bestelhistorie</a></li>
+            <li><a href="<?php echo tep_href_link("account.php", '', 'SSL'); ?>"><?php echo LINK_HEADER_MYACCOUNT; ?></a></li>
+        <?php }?>
+        <li><a href="<?php echo tep_href_link("contactenadvies.php");?>"><?php echo LINK_HEADER_SERVICE; ?></a></li>
+    </ul>
+
+    <div class="box-shopping-cart">
+        <?php
+        if ($enablePageCache && class_exists('page_cache') ) {
+            echo "<%CART_CACHE%>";
+        } else {
+            ?>
+            <?php
+                /** @var CouponHelper $couponHelper */
+                if (isset($couponHelper) && $couponHelper->getCouponCode() && $couponHelper->getCouponMessage()) {
+            ?>
+                <div class="block-coupon">
+                    <div class="block-coupon-label">
+                        <span class="dod-sicon-scissors"></span>
+                        <span class="block-coupon-label-value">10%</span>
+                    </div>
+                    <div class="block-coupon-info">
+                        <p class="block-coupon-status">Kortingscode is geldig.</p>
+                        <?php echo $couponHelper->getCouponMessage(); ?>
+                    </div>
+                </div>
+            <?php
+                }
+            ?>
+            <a href="<?php echo tep_href_link(FILENAME_CHECKOUT_SHIPPING, '', 'SSL'); ?>" class="btn btn-a"><span>Afrekenen</span></a>
+            <div class="block-cart">
+                <a href="<?php echo tep_href_link(FILENAME_SHOPPING_CART); ?>" class="icon-sprite-cart">
+                    <span id="topcart-total-quantity" class="icon-sprite-circle-blue"><?php echo $cart->count_contents(); ?></span>
+                </a>
+                <div id="topcart-total-price" class="block-cart-total">&euro; <span><?php echo $currencies->format($cart->show_total()); ?></span></div>
+            </div>
+        <?php } ?>
+    </div>
+</div>
+<div class="header-bottom header-container clearfix">
+    <div class="txt-delivery"><span class="dod-ficon-time"></span><a href="verzenden_en_bezorgen.php#b1">Voor <?php echo DELIVERY_UNTIL ?> besteld, morgen in huis!</a></div>
+    <div class="txt-shipping"><span class="dod-ficon-truck"></span><a href="verzenden_en_bezorgen.php#verzend">Gratis verzending boven 20 euro</a></div>
+    <div class="box-search">
+        <?php echo tep_draw_form('quick_find2', tep_href_link(\Controller\SearchController::ADVANCED_SEARCH_URL, '', $requestType, false), 'get', 'id=form-mainsearch');?>
+        <?php
+        if (isset($_GET["fromBanner"]) && $_GET["fromBanner"]) {
+            $keywords_value = '';
+        } else {
+            if (isset($_GET["keywords"]) && $_GET["keywords"]) {
+                $keywords_value = htmlspecialchars($_GET["keywords"]);
+            } else {
+                $keywords_value = '';
+            }
+        }
+        ?>
+        <input type="text" name="keywords" id="input-mainsearch" autocomplete="off" title="<?php echo MAIN_SEARCH ?>" value="<?php echo $keywords_value; ?>">
+        <button type="reset" id="btn-resetinput"><span class="dod-ficon-circle-cross"></span></button>
+        <button type="submit" class="btn-mainsearch"><span class="dod-ficon-search"></span></button>
+        </form>
+    </div>
+</div>
+<?php echo $view->stringByCondition(!$strippedHeader, function() use ($view) {
+    return '<div class="header-navigation">' . $view->headerNavigation($view->getOldPhpSelf()) . '</div>';
+}, ''); ?>

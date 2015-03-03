@@ -1,0 +1,46 @@
+<div class="box-contactinfo<?php if($contactinfo_type){ ?> box-contact-<?php echo $contactinfo_type; ?><?php } ?>">
+    <?php if ($contactinfo_type == "prod-info"): ?>
+    <div class="box-contactinfo-container">
+        <h4>Heeft u een vraag over<br><?php echo $product_info['products_name'];?>&nbsp;?</h4>
+        U kunt uw vraag stellen via:
+        <?php endif; ?>
+        <?php if ($contactinfo_type == "prod-list"): ?>
+            Kunnen wij u wellicht helpen bij uw keuze ?
+        <?php endif; ?>
+        <ul class="list-contact">
+            <li class="li-chat">
+                <?php
+                if ($enable_page_cache && class_exists('page_cache') ) {
+                    echo "<%SUPPORT_INFO%>";
+                } else {
+                    require(MVC_VIEW_DIR . 'support_chat.phtml');
+                }
+                ?>
+            </li>
+            <li class="li-phone">
+                <?php
+                if ($_GET['skin'] == 'nhs') {
+                    $phone_num = $skin_phone;
+                } else {
+                    $phone_num = '020 7173893';
+                }
+
+                if(CHAT_AVAILABLE_FORCE) {
+                    $status_icon = ' status-icon-active';
+                    $status_txt = '<span class="status-txt-online">nu bereikbaar</span>';
+                }
+                echo '<a href="javascript:void(0);" class="no-link' . $status_icon . '"><span class="dod-ficon-phone"></span>' . $phone_num . $status_txt . '</a>';
+                ?>
+            </li>
+            <li class="li-contactform"><a href="product_informatie.php?products_id=<?php echo $product_info['products_id'];?>"><span class="dod-ficon-notepad"></span>contactformulier</a></li>
+            <li class="li-email"><a href="mailto:klantenservice@dod.nl"><span class="dod-ficon-mail"></span>klantenservice@dod.nl</a></li>
+        </ul>
+        <?php if ($contactinfo_type == "prod-info"): ?>
+    </div>
+    <p class="box-contactinfo-container-bottom">
+        <span class="dod-ficon-emblem"></span>
+        U neemt direct contact op met<br>onze gediplomeerde drogisten.
+    </p>
+<?php endif; ?>
+</div>
+<script type="text/javascript" src="<?php echo STATIC_PREPEND; ?>includes/javascript/contact_boxes.js"></script>

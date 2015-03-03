@@ -1,0 +1,222 @@
+<!-- body -->
+<div id="content" class="clearfix product">
+    <div id="left_col">
+        <?php
+        if ($skin_box) {
+            include(DIR_WS_BOXES . $skin_box);
+            include(DIR_WS_BOXES . 'onze_voordelen.php');
+        }else{
+            if(isset($_GET["fromBanner"]) && $_GET["fromBanner"] > 0){
+                include(DIR_WS_BOXES . 'categories.php');
+            }else{
+                include(MVC_VIEW_DIR . 'boxes' . DIRECTORY_SEPARATOR . 'search_left.phtml');
+            }
+        }
+        ?>
+    </div>
+    <div id="right_col" class="categorie">
+        <?php
+
+        echo $this->skinRenderer('brand_ad', 'skins' . DIRECTORY_SEPARATOR . $skinId);
+
+        if(isset($skinId)){
+            switch ($skinId){
+                case 'heltiq':
+                    echo '<div id="heltiq_skin_0"></div>';
+                    break;
+                case 'byebites':
+                    echo '<div id="byebites_skin_4"></div>';
+                    break;
+                case "utermohlen":
+                    echo '<div id="utermohlen_skin_00"></div>';
+                    break;
+                case "megared":
+                    echo '<div id="megared_banner"></div>';
+                    break;
+                case "cranmed":
+                    echo '<div id="cranmed_banner"></div>';
+                    break;
+                case "ymea":
+                    echo '<div id="ymea_banner"></div>';
+                    break;
+                case "dermalex":
+                    echo '<div id="dermalex_banner"></div>';
+                    break;
+                case "gehwol":
+                    echo '<div id="gehwol_banner"></div>';
+                    break;
+                case "azaron":
+                    echo '<div id="azaron_banner"></div>';
+                    break;
+                case "wartner":
+                    echo '<div id="wartner_banner"></div>';
+                    break;
+                case "tantum":
+                    echo '<div id="tantum_banner"></div>';
+                    break;
+                case "lactacyd":
+                    echo '<div id="lactacyd_banner"></div>';
+                    break;
+                case "jfm":
+                    echo '<div id="jfm_banner"></div>';
+                    break;
+            }
+        }
+
+        /*        $showToonAlles = false;
+
+                if (!isset($_GET["toon"]))
+                    $_GET["toon"] = '';
+
+                $toon = tep_db_prepare_input($_GET["toon"]);
+                if($current_category_id){
+                    $brand_all_query = tep_db_query("select count(*) as brand_count from products where products_status = 1  and exclusive_ta = 0 and manufacturers_id = ".(int)$manufacturers_id);
+                    $brand_all_row = tep_db_fetch_array($brand_all_query);
+                    $brand_all = $brand_all_row["brand_count"];
+                    if($currentBrandNumber<$brand_all)
+                        $showToonAlles = true;
+                }*/
+        ?>
+        <!--        <h1>
+            <?php /*echo $htc['htc_title']; */?>
+            <?php /*if($showToonAlles){*/?>
+                <a href="<?php /*echo tep_href_link('index.php', "toon=".$current_category_id."&manufacturers_id=" . $manufacturers_id);*/?>">&gt; toon alle producten van <?php /*echo $htc['htc_title']; */?></a>
+            <?php /*}*/?>
+            <?php /*if($toon){*/?>
+                <a href="<?php /*echo tep_href_link('index.php', "c=".$toon."&manufacturers_id=" . $manufacturers_id);*/?>">&gt; toon <?php /*echo $htc['htc_title']; */?> producten in de categorie <?php /*echo tep_get_categories_name($toon);*/?></a>
+            <?php /*}*/?> //todo fix it
+        </h1>-->
+        <?php
+        switch ($this->manufacturerId) {
+            case 834:
+                echo '<div class="box"><img src="' . STATIC_PREPEND . 'images/layout/testjezelf-merkwinkel-header.jpg"></div>';
+                break;
+            case 264:
+                echo '<div class="box"><img src="' . STATIC_PREPEND . 'images/layout/header_merkwinkel_multimam2.jpg"></div>';
+                break;
+            case 35:
+                echo '<div class="box"><img src="' . STATIC_PREPEND . 'images/layout/header_merkwinkel_bloem.jpg"></div>';
+                break;
+            case 280:
+                echo '<div class="box"><img src="' . STATIC_PREPEND . 'images/layout/header_pharmanord.jpg"></div>';
+                break;
+            case 76:
+                echo '<div class="box"><img src="' . STATIC_PREPEND . 'images/layout/vsm_merkwinkel_header.jpg"></div>';
+                $allowed_prijzen_ips = array("218.4.56.132","82.95.49.9");
+                if (in_array($_SERVER['REMOTE_ADDR'], $allowed_prijzen_ips)){
+                    include(DIR_WS_BOXES . "vsm.php");
+                }
+                break;
+        }
+        ?>
+        <div id="advanced-search" class="clearfix">
+            <?php echo $searchForm?>
+            <?php if ($productsCount) :?>
+                <?php
+                if($productsCount > $limit){
+                    echo "<span class='as-info2'>Totaal <strong>{$productsCount}</strong> artikelen</span>";
+                }
+                ?>
+                <div id='wp_page_numbers'>
+                    <?php echo $pagination; ?>
+                </div>
+            <?php endif ?>
+
+        </div>
+        <!-- end #advanced-search-->
+        <div id="prod-results" data-product_list="Brand-<?php echo $this->manufacturerId?>" class="clearfix">
+            <?php
+            if ($productsCount) {
+                $imageButton = tep_image_button('button_voorraad.gif', "Voorraad UPDATE");
+                $prodBoxClass = $skinId ? '' : '-five';
+                foreach ($products as $product) { ?>
+                    <div class="product_link prod-box-min<?php echo $prodBoxClass . $this->stringByCondition($product['isLast'], ' last', '');?>">
+                        <?php
+                        echo $this->stringByCondition(!$product['quantity'], '<div class="leverbaar hide">op dit moment<br/>niet leverbaar</div>', '');
+                        echo $this->stringByCondition(
+                            $product['afwijkend_geleverd'],
+                            '<div style="position: absolute;margin-top:120px;margin-left:30px;"><img src="' . STATIC_PREPEND . 'img/Kleurenafwijking_warningSmall.png" alt=""></div>',
+                            ''
+                        );
+                        ?>
+                        <div class="product-title"><a href="<?php echo $product['link'];?>"><?php echo $product['name'];?></a></div>
+                        <a href="<?php echo $product['link']?>" class="productlink"></a>
+                        <div class="thumb-container">
+                            <?php echo $this->stringByCondition(
+                                $product['freeShipping'],
+                                '<div class="label-freeshipping">Gratis verzending</div>',
+                                ''
+                            );
+                            echo $product['image']; ?>&nbsp;
+                        </div>
+                        <div class="mini-details v2">
+                            Inhoud: <?php echo $product['volume'];?><br />
+                            Voorraad: <?php echo $product['quantity_for_display'];?>
+                        </div>
+                        <div class="price">
+                            <span class="old-price"><?php echo $product['old_price'];?></span>
+                            <span class="new-price"><?php echo $product['new_price'];?></span>
+                        </div>
+                        <div class="clear"></div>
+                        <div class="buy-box clearfix">
+                            <?php
+                            echo $this->stringByCondition(
+                                !$product['quantity'],
+                                function() use ($product, $imageButton){
+                                    return sprintf(
+                                        '<a href="javascript:void(0);" onclick="openVoorraad(%s)">%s</a>'
+                                        .'<input type="hidden" class="products_info_data" data-id="%d" data-name="%s" data-category="%s" data-brand="%s" data-orig-price="%s"'
+                                        . ' data-special-price="%s" data-position="%d"/>',
+                                        $product['id'],
+                                        $imageButton,
+                                        $product['id'],
+                                        $product['name'],
+                                        $product['category'],
+                                        $product['brand_name'],
+                                        $product['price'],
+                                        $product['new_price'],
+                                        $product['position']
+                                    );
+                                },
+                                function() use ($product){
+                                    global $products_min_order_qty;
+                                    $products_min_order_qty = $product['min_order_qty'];
+                                    return sprintf(
+                                        '%s<input type="button" class="addToCart products_info_data" data-id="%d" data-name="%s" data-category="%s" data-brand="%s" data-orig-price="%s"'
+                                        . ' data-special-price="%s" data-position="%d" value="in winkelwagen" onclick="addIntoCart(%s)"/>',
+                                        tep_out_product_quantity($product['id']),
+                                        $product['id'],
+                                        $product['name'],
+                                        $product['category'],
+                                        $product['brand_name'],
+                                        $product['price'],
+                                        $product['new_price'],
+                                        $product['position'],
+                                        $product['id']
+                                    );
+                                }
+                            );?>
+                        </div><!-- end .buy-box-->
+                    </div><!-- prod-box-min -->
+                <?php }
+            }
+            ?>
+        </div>
+        <?php
+        echo $this->stringByCondition(
+            $pagination,
+            '<div id="advanced-search" class="clearfix">
+                        <div class="clear"></div>
+                        <div id="wp_page_numbers">' . $pagination . '</div></div>'
+            ,'');
+        ?>
+        <?php
+        $contactinfo_type = 'prod-list';
+        include(MVC_VIEW_DIR . 'contacts.phtml');
+        ?>
+    </div>
+</div>
+<!-- body_eof -->
+<!-- footer -->
+<?php require(MVC_VIEW_DIR . 'footer.phtml'); ?>
+<!-- footer_eof -->
