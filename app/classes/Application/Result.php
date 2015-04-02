@@ -85,9 +85,12 @@ class Result
 
     /**
      * @param mixed $message
+     * @return $this
      */
     public function setMessage($message)
     {
         $this->message = $message;
+
+        return $this;
     }
 }
